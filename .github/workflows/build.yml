@@ -118,16 +118,16 @@ jobs:
           reports: |
             */build/reports/checkstyle/*.xml
 
-      - name: Create Paperclip Jar
+      - name: Create AstraSpigot Jar
         if: fromJSON(steps.determine.outputs.result).action == 'paperclip'
         run: ./gradlew createPaperclipJar --stacktrace
 
-      - name: Upload Paperclip Jar
+      - name: Upload AstraSpigot Jar
         if: fromJSON(steps.determine.outputs.result).action == 'paperclip'
         uses: actions/upload-artifact@v7
         with:
-          name: paper-${{ fromJSON(steps.determine.outputs.result).pr }}
-          path: paper-server/build/libs/paper-paperclip-*.jar
+          name: AstraSpigot-${{ fromJSON(steps.determine.outputs.result).pr }}
+          path: paper-server/build/libs/AstraSpigot-[0-9]*.jar
 
       - name: Publish Artifacts
         if: fromJSON(steps.determine.outputs.result).action == 'paperclip'

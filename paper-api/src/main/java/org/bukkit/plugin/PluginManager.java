@@ -307,13 +307,6 @@ public interface PluginManager extends io.papermc.paper.plugin.PermissionManager
     @NotNull
     public Set<Permission> getPermissions();
 
-    /**
-     * Returns whether or not timing code should be used for event calls
-     *
-     * @return True if event timings are to be used
-     */
-    public boolean useTimings();
-
     // Paper start
     /**
      * @hidden

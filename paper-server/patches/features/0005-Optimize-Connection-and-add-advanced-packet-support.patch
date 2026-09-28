@@ -70,7 +70,7 @@ index f7814801138d9547e693ad51ba83cb2cb4ef750e..e6a674eb859af1e98fe25b644c1c5f70
              this.sendPacket(packet, listener, flush);
          } else {
 -            this.pendingActions.add(connection -> connection.sendPacket(packet, listener, flush));
-+            // Write the packets to the queue, then flush - antixray hooks there already
++            // Write the packets to the queue, then flush.
 +            final java.util.List<Packet<?>> extraPackets = InnerUtil.buildExtraPackets(packet);
 +            final boolean hasExtraPackets = extraPackets != null && !extraPackets.isEmpty();
 +            if (!hasExtraPackets) {

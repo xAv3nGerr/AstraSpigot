@@ -33,7 +33,6 @@ import io.papermc.paper.configuration.type.BooleanOrDefault;
 import io.papermc.paper.configuration.type.DespawnRange;
 import io.papermc.paper.configuration.type.Duration;
 import io.papermc.paper.configuration.type.DurationOrDisabled;
-import io.papermc.paper.configuration.type.EngineMode;
 import io.papermc.paper.configuration.type.fallback.FallbackValueSerializer;
 import io.papermc.paper.configuration.type.number.DoubleOr;
 import io.papermc.paper.configuration.type.number.IntOr;
@@ -261,7 +260,6 @@ public class PaperConfigurations extends Configurations<GlobalConfiguration, Wor
                     .register(new TypeToken<Table<?, ?, ?>>() {}, new TableSerializer())
                     .register(DespawnRange.class, DespawnRange.SERIALIZER)
                     .register(StringRepresentableSerializer::isValidFor, new StringRepresentableSerializer())
-                    .register(EngineMode.SERIALIZER)
                     .register(FallbackValueSerializer.create(contextMap.require(SPIGOT_WORLD_CONFIG_CONTEXT_KEY).get(), MinecraftServer::getServer))
                     .register(new RegistryValueSerializer<>(new TypeToken<EntityType<?>>() {}, access, Registries.ENTITY_TYPE, true))
                     .register(new RegistryValueSerializer<>(Item.class, access, Registries.ITEM, true))

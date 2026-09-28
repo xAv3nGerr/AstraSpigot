@@ -947,22 +947,6 @@ public final class SimplePluginManager implements PluginManager {
         return false;
     }
 
-    @Override
-    public boolean useTimings() {
-        if (true) {return this.paperPluginManager.useTimings();} // Paper
-        return co.aikar.timings.Timings.isTimingsEnabled(); // Spigot
-    }
-
-    /**
-     * Sets whether or not per event timing code should be used
-     *
-     * @param use True if per event timing code should be used
-     */
-    @Deprecated(forRemoval = true)
-    public void useTimings(boolean use) {
-        co.aikar.timings.Timings.setTimingsEnabled(use); // Paper
-    }
-
     // Paper start
     public void clearPermissions() {
         if (true) {this.paperPluginManager.clearPermissions(); return;} // Paper

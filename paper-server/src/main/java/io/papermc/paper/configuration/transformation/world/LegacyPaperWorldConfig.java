@@ -3,7 +3,6 @@ package io.papermc.paper.configuration.transformation.world;
 import io.papermc.paper.configuration.Configuration;
 import io.papermc.paper.configuration.WorldConfiguration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -54,25 +53,6 @@ public final class LegacyPaperWorldConfig {
                 newPath[newPath.length - 1] = "nether-ceiling-void-damage-height";
                 return newPath;
             }).build())
-            .addVersion(19, ConfigurationTransformation.builder()
-                .addAction(path("anti-xray", "hidden-blocks"), (path, value) -> {
-                    final List<String> hiddenBlocks = value.getList(String.class);
-                    if (hiddenBlocks != null) {
-                        hiddenBlocks.remove("lit_redstone_ore");
-                    }
-                    return null;
-                })
-                .addAction(path("anti-xray", "replacement-blocks"), (path, value) -> {
-                    final List<String> replacementBlocks = value.getList(String.class);
-                    if (replacementBlocks != null) {
-                        final int index = replacementBlocks.indexOf("planks");
-                        if (index != -1) {
-                            replacementBlocks.set(index, "oak_planks");
-                        }
-                    }
-                    value.raw(replacementBlocks);
-                    return null;
-                }).build())
             .addVersion(20, ConfigurationTransformation.builder().addAction(path("baby-zombie-movement-speed"), TransformAction.rename("baby-zombie-movement-modifier")).build())
             .addVersion(22, ConfigurationTransformation.builder().addAction(path("per-player-mob-spawns"), (path, value) -> {
                 value.raw(true);
@@ -161,8 +141,6 @@ public final class LegacyPaperWorldConfig {
     private static ConfigurationTransformation newFormatTransformation() {
         final ConfigurationTransformation.Builder builder = ConfigurationTransformation.builder()
             .addAction(path("verbose"), TransformAction.remove()); // not needed
-
-        moveFromRoot(builder, "anti-xray", "anticheat");
 
         moveFromRootAndRename(builder, "armor-stands-do-collision-entity-lookups", "do-collision-entity-lookups", "entities", "armor-stands");
         moveFromRootAndRename(builder, "armor-stands-tick", "tick", "entities", "armor-stands");

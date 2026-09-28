@@ -43,7 +43,7 @@
 +    public static void registerPaperCommands(final Map<Set<String>, PaperSubcommand> commands) {
 +    }
 +
-+    public static LevelChunkSection createSection(final PalettedContainerFactory palettedContainerFactory, final Level level, final ChunkPos chunkPos, final int chunkSection) {
++    public static LevelChunkSection createSection(final PalettedContainerFactory palettedContainerFactory) {
 +        return new LevelChunkSection(palettedContainerFactory);
 +    }
 +

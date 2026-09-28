@@ -1,5 +1,6 @@
 import io.papermc.fill.model.BuildChannel
 import io.papermc.paperweight.attribute.DevBundleOutput
+import io.papermc.paperweight.tasks.CreatePaperclipJar
 import io.papermc.paperweight.util.*
 import java.time.Instant
 
@@ -20,11 +21,16 @@ dependencies {
 
 paperweight {
     minecraftVersion = providers.gradleProperty("mcVersion")
+    bundlerJarName.set("AstraSpigot")
     gitFilePatches = false
 
     updatingMinecraft {
         //oldPaperCommit = "e5fe71723e2ffde7cc9fafc085ac3bb73e63175e"
     }
+}
+
+tasks.named<CreatePaperclipJar>("createPaperclipJar") {
+    outputZip.set(layout.buildDirectory.file("libs/AstraSpigot-${project.version}.jar"))
 }
 
 tasks.generateDevelopmentBundle {
@@ -143,10 +149,6 @@ dependencies {
     runtimeOnly("org.xerial:sqlite-jdbc:3.49.1.0")
     runtimeOnly("com.mysql:mysql-connector-j:9.2.0")
     runtimeOnly("com.lmax:disruptor:3.4.4")
-    implementation("com.googlecode.json-simple:json-simple:1.1.1") { // change to runtimeOnly once Timings is removed
-        isTransitive = false // includes junit
-    }
-
     testImplementation("io.github.classgraph:classgraph:4.8.184") // For mob goal test
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
@@ -163,6 +165,7 @@ dependencies {
 }
 
 tasks.jar {
+    archiveBaseName.set("AstraSpigot")
     manifest {
         val git = Git(rootProject.layout.projectDirectory.path)
         val mcVersion = rootProject.providers.gradleProperty("mcVersion").get()
@@ -174,14 +177,14 @@ tasks.jar {
         val gitBranch = git.exec(providers, "rev-parse", "--abbrev-ref", "HEAD").get().trim()
         attributes(
             "Main-Class" to "org.bukkit.craftbukkit.Main",
-            "Implementation-Title" to "Paper",
+            "Implementation-Title" to "AstraSpigot",
             "Implementation-Version" to implementationVersion,
             "Implementation-Vendor" to date,
-            "Specification-Title" to "Paper",
+            "Specification-Title" to "AstraSpigot",
             "Specification-Version" to project.version,
-            "Specification-Vendor" to "Paper Team",
+            "Specification-Vendor" to "AstraSpigot Team",
             "Brand-Id" to "papermc:paper",
-            "Brand-Name" to "Paper",
+            "Brand-Name" to "AstraSpigot",
             "Build-Number" to (build ?: ""),
             "Build-Time" to buildTime.toString(),
             "Git-Branch" to gitBranch,

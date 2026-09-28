@@ -231,11 +231,6 @@ public class PaperPluginManagerImpl implements PluginManager, DependencyContext 
     // Etc
 
     @Override
-    public boolean useTimings() {
-        return co.aikar.timings.Timings.isTimingsEnabled();
-    }
-
-    @Override
     public void registerInterface(@NotNull Class<? extends PluginLoader> loader) throws IllegalArgumentException {
         throw new UnsupportedOperationException();
     }

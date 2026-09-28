@@ -1,4 +1,4 @@
-Paper [![Version](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fartifactory.papermc.io%2Fartifactory%2Funiverse%2Fio%2Fpapermc%2Fpaper%2Fpaper-api%2Fmaven-metadata.xml&strategy=highestVersion&filter=26.3.*&label=version&color=%23344ceb
+AstraSpigot [![Version](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fartifactory.papermc.io%2Fartifactory%2Funiverse%2Fio%2Fpapermc%2Fpaper%2Fpaper-api%2Fmaven-metadata.xml&strategy=highestVersion&filter=26.3.*&label=version&color=%23344ceb
 )](https://papermc.io/downloads/paper)
 [![Paper Build Status](https://img.shields.io/github/actions/workflow/status/PaperMC/Paper/build.yml?branch=main)](https://github.com/PaperMC/Paper/actions)
 [![Discord](https://img.shields.io/discord/289587909051416579.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/papermc)
@@ -14,11 +14,9 @@ The most widely used, high-performance Minecraft server that aims to fix gamepla
 
 How To (Server Admins)
 ------
-Paperclip is a jar file that you can download and run just like a normal jar file.
+AstraSpigot's Paperclip jar can be run directly like a normal server jar.
 
-Download Paper from our [downloads page](https://papermc.io/downloads/paper).
-
-Run the Paperclip jar directly from your server. Just like old times.
+Run `AstraSpigot-<version>.jar` directly as your server jar.
 
 * Documentation on using Paper: [docs.papermc.io](https://docs.papermc.io)
 * For a sneak peek at upcoming features, [see here](https://github.com/PaperMC/Paper/projects)
@@ -66,7 +64,7 @@ java {
 
 How To (Compiling Jar From Source)
 ------
-To compile Paper, you need JDK 25 and an internet connection.
+To compile AstraSpigot, you need JDK 25 and an internet connection.
 
 Clone this repo, run `./gradlew applyPatches`, then `./gradlew createPaperclipJar` from your terminal. You can find the compiled jar in the `paper-server/build/libs` directory.
 

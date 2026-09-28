@@ -75,14 +75,14 @@ public class WatchdogThread extends ca.spottedleaf.moonrise.common.util.TickThre
                 this.lastEarlyWarning = currentTime;
                 if (isLongTimeout) {
                     logger.log(Level.SEVERE, "------------------------------");
-                    logger.log(Level.SEVERE, "The server has stopped responding! This is (probably) not a Paper bug."); // Paper
+                    logger.log(Level.SEVERE, "The server has stopped responding! This is (probably) not an AstraSpigot issue."); // Paper
                     logger.log(Level.SEVERE, "If you see a plugin in the Server thread dump below, then please report it to that author");
                     logger.log(Level.SEVERE, "\t *Especially* if it looks like HTTP or MySQL operations are occurring");
                     logger.log(Level.SEVERE, "If you see a world save or edit, then it means you did far more than your server can handle at once");
                     logger.log(Level.SEVERE, "\t If this is the case, consider increasing timeout-time in spigot.yml but note that this will replace the crash with LARGE lag spikes");
-                    logger.log(Level.SEVERE, "If you are unsure or still think this is a Paper bug, please report this to https://github.com/PaperMC/Paper/issues");
+                    logger.log(Level.SEVERE, "If you are unsure or still think this is an AstraSpigot issue, please report this at https://github.com/xAv3nGerr/AstraSpigot/issues");
                     logger.log(Level.SEVERE, "Be sure to include ALL relevant console errors and Minecraft crash reports");
-                    logger.log(Level.SEVERE, "Paper version: " + Bukkit.getServer().getVersion());
+                    logger.log(Level.SEVERE, "AstraSpigot version: " + Bukkit.getServer().getVersion());
 
                     if (net.minecraft.world.level.Level.lastPhysicsProblem != null) {
                         logger.log(Level.SEVERE, "------------------------------");
