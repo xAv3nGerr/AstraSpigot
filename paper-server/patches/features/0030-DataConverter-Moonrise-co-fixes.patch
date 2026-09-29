@@ -5,7 +5,7 @@ Subject: [PATCH] DataConverter, Moonrise & co fixes
 
 
 diff --git a/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index cc0d455f88bc7c5798ea27abfaa3333c2656eb92..e24c7e2db785bce4a8801373d8e2bcd25477dbb6 100644
+index 3156c57142360f80e78c0a23f7a9980b41467e3f..ee52233d15df9de9f5a0a85dcac7f7f38f8c004d 100644
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -1856,9 +1856,14 @@ public class ServerGamePacketListenerImpl

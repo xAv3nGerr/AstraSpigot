@@ -20,10 +20,10 @@ index ba372f75dec3ee8b89c48df2cc646f071a47d25a..706f529a7d1064aad128b1ee8c82f631
  
      @Override
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 487fcb8546ad24125c6573fb84f22a02752b35f1..b675e9322234761a69e71e9e8b9d41364caf34b6 100644
+index b9a163083fc059bf2c6bf01ade1fc5b7cf9103af..78decb3670398f314920beeae1bc2a08e008451e 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -1741,32 +1741,22 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1735,32 +1735,22 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          return new ServerStatus.Players(maxPlayers, players.size(), sample);
      }
  

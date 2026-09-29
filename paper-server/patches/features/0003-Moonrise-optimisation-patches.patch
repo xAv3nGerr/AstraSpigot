@@ -23676,7 +23676,7 @@ index 0000000000000000000000000000000000000000..95154636727366adfb4fb67e7db8b09f
 +    private SaveUtil() {}
 +}
 diff --git a/io/papermc/paper/FeatureHooks.java b/io/papermc/paper/FeatureHooks.java
-index fbad2fd2ea324fec44f27ac35024579b5436db25..82377ee76caac220f7565cb729b9e608206a685a 100644
+index 2a3baab1fa2adec0cf61b080b8ba1971e6785e8d..25c475328021fe2963442c7eabc90dc7ed24486a 100644
 --- a/io/papermc/paper/FeatureHooks.java
 +++ b/io/papermc/paper/FeatureHooks.java
 @@ -1,6 +1,9 @@
@@ -23706,7 +23706,7 @@ index fbad2fd2ea324fec44f27ac35024579b5436db25..82377ee76caac220f7565cb729b9e608
 +        commands.put(Set.of("debug", "chunkinfo", "holderinfo"), new ChunkDebugCommand());  // Paper - rewrite chunk system
      }
  
-     public static LevelChunkSection createSection(final PalettedContainerFactory palettedContainerFactory, final Level level, final ChunkPos chunkPos, final int chunkSection) {
+     public static LevelChunkSection createSection(final PalettedContainerFactory palettedContainerFactory) {
 @@ -58,117 +64,59 @@ public final class FeatureHooks {
      }
  
@@ -24463,7 +24463,7 @@ index 098af940bf4d626c98f5e64d2aac2d9df0a9e128..6405c8c92795232fd2ac3a4d7e2fb5e4
      }
  
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index c4adc7266f41057bc93e8c34929c079c9c468d0b..255e01251005a547088aba437ca27ce06fc996e5 100644
+index 3ce17478a747318271fc4f138cd17a8d64384b6f..cc9f2b8428957c32f557cd3c217f721427e69096 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -187,7 +187,7 @@ import net.minecraft.world.scores.ScoreboardSaveData;
@@ -24682,7 +24682,7 @@ index c4adc7266f41057bc93e8c34929c079c9c468d0b..255e01251005a547088aba437ca27ce0
          profiler.pop(); // moonrise:run_all_chunk
          profiler.pop(); // moonrise:run_all_tasks
  
-@@ -1377,6 +1488,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1371,6 +1482,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
  
      private boolean pollTaskInternal() {
          if (super.pollTask()) {
@@ -24690,7 +24690,7 @@ index c4adc7266f41057bc93e8c34929c079c9c468d0b..255e01251005a547088aba437ca27ce0
              return true;
          }
  
-@@ -1518,6 +1630,13 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1512,6 +1624,13 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          // Paper - improve tick loop - moved into runAllTasksAtTickStart
          this.runAllTasksAtTickStart(); // Paper - improve tick loop
          this.tickServer(sprinting ? () -> false : this::haveTime);
@@ -24704,7 +24704,7 @@ index c4adc7266f41057bc93e8c34929c079c9c468d0b..255e01251005a547088aba437ca27ce0
          this.tickFrame.end();
          this.recordEndOfTick(); // Paper - improve tick loop
          profiler.pop();
-@@ -2559,6 +2678,12 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -2553,6 +2672,12 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          }
      }
  
@@ -24718,10 +24718,10 @@ index c4adc7266f41057bc93e8c34929c079c9c468d0b..255e01251005a547088aba437ca27ce0
      // CraftBukkit start
      public boolean isDebugging() {
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 4f25b583fe53a989a3f02a897cb94fb104902f67..68675926ee85f738b3693a76fc29b80b80c717ed 100644
+index d3c0600171fb7f8b74a2afdbcd9e12909a79c15c..42be99f65bcd2d4c86115f5f8d7c2cc412782a13 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -408,9 +408,9 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+@@ -406,9 +406,9 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
      }
  
      @Override
@@ -24733,7 +24733,7 @@ index 4f25b583fe53a989a3f02a897cb94fb104902f67..68675926ee85f738b3693a76fc29b80b
          this.notificationManager().serverSaveCompleted();
          return savedChunks;
      }
-@@ -530,7 +530,33 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+@@ -528,7 +528,33 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
          this.handleConsoleInputs();
      }
  

@@ -93,7 +93,7 @@ diff --git a/net/minecraft/world/level/NaturalSpawner.java b/net/minecraft/world
 index 87119421a9edd5a3306759f415a315828aaa13c6..60cbd430bd41b1268dee9e5c53c9eb48129be44a 100644
 --- a/net/minecraft/world/level/NaturalSpawner.java
 +++ b/net/minecraft/world/level/NaturalSpawner.java
-@@ -68,6 +68,18 @@ public final class NaturalSpawner {
+@@ -68,6 +68,21 @@ public final class NaturalSpawner {
      public static NaturalSpawner.SpawnState createState(
          final int spawnableChunkCount, final ServerLevel level, final NaturalSpawner.ChunkGetter chunkGetter, final LocalMobCapCalculator localMobCapCalculator
      ) {
@@ -109,6 +109,9 @@ index 87119421a9edd5a3306759f415a315828aaa13c6..60cbd430bd41b1268dee9e5c53c9eb48
 +        final boolean countMobs
 +    ) {
 +        // Paper end - Optional per player mob spawns
++        if (!level.getGameRules().get(GameRules.SPAWN_MOBS) || level.players().isEmpty()) {
++            return new NaturalSpawner.SpawnState(spawnableChunkCount, new Object2IntOpenHashMap<>(), new PotentialCalculator(), localMobCapCalculator);
++        }
          Iterable<Entity> entities = level.getAllEntities();
          PotentialCalculator spawnPotential = new PotentialCalculator();
          Object2IntOpenHashMap<MobCategory> mobCounts = new Object2IntOpenHashMap<>();

@@ -254,9 +254,23 @@
          BlockState state = blockEntity.getBlockState();
          BlockEntityTicker<T> ticker = state.getTicker(this.level, (BlockEntityType<T>)blockEntity.getType());
          if (ticker == null) {
+@@ -725,4 +_,5 @@
+     private class BoundTickingBlockEntity<T extends BlockEntity> implements TickingBlockEntity {
+         private final T blockEntity;
++        private final BlockEntityType<?> blockEntityType;
+         private final BlockEntityTicker<T> ticker;
+         private boolean loggedInvalidBlockState;
+@@ -730,4 +_,5 @@
+         private BoundTickingBlockEntity(final T blockEntity, final BlockEntityTicker<T> ticker) {
+             this.blockEntity = blockEntity;
++            this.blockEntityType = blockEntity.getType();
+             this.ticker = ticker;
+         }
 @@ -744,7 +_,11 @@
-                         if (this.blockEntity.getType().isValid(blockState)) {
-                             this.ticker.tick(LevelChunk.this.level, this.blockEntity.getBlockPos(), blockState, this.blockEntity);
+-                        if (this.blockEntity.getType().isValid(blockState)) {
++                        if (this.blockEntityType.isValid(blockState)) {
+-                            this.ticker.tick(LevelChunk.this.level, this.blockEntity.getBlockPos(), blockState, this.blockEntity);
++                            this.ticker.tick(LevelChunk.this.level, pos, blockState, this.blockEntity);
                              this.loggedInvalidBlockState = false;
 -                        } else if (!this.loggedInvalidBlockState) {
 +                            // Paper start - Remove the Block Entity if it's invalid

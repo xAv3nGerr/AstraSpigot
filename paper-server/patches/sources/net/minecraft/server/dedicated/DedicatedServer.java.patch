@@ -92,7 +92,7 @@
          LOGGER.info("Loading properties");
          DedicatedServerProperties properties = this.settings.getProperties();
          if (this.isSingleplayer()) {
-@@ -197,8 +_,45 @@
+@@ -197,8 +_,43 @@
              this.setLocalIp(properties.serverIp);
          }
  

@@ -213,7 +213,9 @@ public class GlobalConfiguration extends ConfigurationPart {
 
     public class ChunkSystem extends ConfigurationPart {
 
+        @Comment("Number of chunk I/O worker threads. Set to -1 to use a default based on the CPU limit available to the server.")
         public int ioThreads = -1;
+        @Comment("Number of chunk generation worker threads. Set to -1 to use a default based on the CPU limit available to the server.")
         public int workerThreads = -1;
 
         @PostProcess

@@ -9,7 +9,7 @@ plugins {
     `maven-publish`
     idea
     id("io.papermc.paperweight.core")
-    id("io.papermc.fill.gradle") version "1.0.12"
+    id("io.papermc.fill.gradle") version "1.0.14"
 }
 
 val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
@@ -116,6 +116,7 @@ abstract class MockitoAgentProvider : CommandLineArgumentProvider {
 
 dependencies {
     implementation(project(":paper-api"))
+    implementation("com.github.luben:zstd-jni:1.5.7-6")
     implementation(platform("ca.spottedleaf.leafpile:bom:1.2.4"))
     implementation("ca.spottedleaf.leafpile:common")
     implementation("ca.spottedleaf.leafpile:concurrentutil")
@@ -348,4 +349,8 @@ fill {
             }
         }
     }
+}
+
+tasks.named("publishToFill") {
+    notCompatibleWithConfigurationCache("Holds an HttpClient in a task field")
 }

@@ -531,6 +531,9 @@ public class CraftEventFactory {
         EquipmentSlot handSlot = CraftEquipmentSlot.getHand(hand);
         BlockPlaceEvent event = new BlockPlaceEvent(placedBlock, replacedState, clickedBlock, cplayer.getInventory().getItem(handSlot), cplayer, canBuild, handSlot);
         event.callEvent();
+        if (!event.isCancelled() && !io.papermc.paper.configuration.AstraSpigotConfiguration.allowBlockPlacement(event.getBlockPlaced(), event.getItemInHand().getType(), cplayer)) {
+            event.setCancelled(true);
+        }
 
         return event;
     }
@@ -571,6 +574,9 @@ public class CraftEventFactory {
 
         EntityPlaceEvent event = new EntityPlaceEvent(entity.getBukkitEntity(), cplayer, clickedBlock, blockFace, CraftEquipmentSlot.getHand(hand));
         entity.level().getCraftServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled() && !io.papermc.paper.configuration.AstraSpigotConfiguration.allowEntityPlacement(entity.getBukkitEntity(), cplayer)) {
+            event.setCancelled(true);
+        }
 
         return event;
     }

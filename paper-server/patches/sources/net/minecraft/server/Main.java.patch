@@ -216,8 +216,9 @@
 +                    boolean gui = !options.has("nogui") && !options.nonOptionArguments().contains("nogui");
                      if (gui && !GraphicsEnvironment.isHeadless()) {
 -                        server.showGui();
+-                    }
 +                        // GUI disabled for headless server deployments
-                     }
++                    }
 +                    // Paper start
 +                    if (options.has("port")) {
 +                        int port = (Integer) options.valueOf("port");

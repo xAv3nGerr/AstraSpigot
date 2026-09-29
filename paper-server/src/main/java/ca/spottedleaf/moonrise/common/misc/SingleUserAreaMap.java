@@ -60,6 +60,22 @@ public abstract class SingleUserAreaMap<T> {
         }
     }
 
+    private void addRectangle(final T parameter, final int minX, final int maxX, final int minZ, final int maxZ) {
+        for (int x = minX; x <= maxX; ++x) {
+            for (int z = minZ; z <= maxZ; ++z) {
+                this.addCallback(parameter, x, z);
+            }
+        }
+    }
+
+    private void removeRectangle(final T parameter, final int minX, final int maxX, final int minZ, final int maxZ) {
+        for (int x = minX; x <= maxX; ++x) {
+            for (int z = minZ; z <= maxZ; ++z) {
+                this.removeCallback(parameter, x, z);
+            }
+        }
+    }
+
     public final boolean add(final int chunkX, final int chunkZ, final int distance) {
         if (distance < 0) {
             throw new IllegalArgumentException(Integer.toString(distance));
@@ -108,36 +124,67 @@ public abstract class SingleUserAreaMap<T> {
         }
 
         if (oldViewDistance != newViewDistance) {
-            // remove loop
-
             final int oldMinX = fromX - oldViewDistance;
             final int oldMinZ = fromZ - oldViewDistance;
             final int oldMaxX = fromX + oldViewDistance;
             final int oldMaxZ = fromZ + oldViewDistance;
-            for (int currX = oldMinX; currX <= oldMaxX; ++currX) {
-                for (int currZ = oldMinZ; currZ <= oldMaxZ; ++currZ) {
-
-                    // only remove if we're outside the new view distance...
-                    if (Math.max(Math.abs(currX - toX), Math.abs(currZ - toZ)) > newViewDistance) {
-                        this.removeCallback(parameter, currX, currZ);
-                    }
-                }
-            }
-
-            // add loop
-
             final int newMinX = toX - newViewDistance;
             final int newMinZ = toZ - newViewDistance;
             final int newMaxX = toX + newViewDistance;
             final int newMaxZ = toZ + newViewDistance;
-            for (int currX = newMinX; currX <= newMaxX; ++currX) {
-                for (int currZ = newMinZ; currZ <= newMaxZ; ++currZ) {
 
-                    // only add if we're outside the old view distance...
-                    if (Math.max(Math.abs(currX - fromX), Math.abs(currZ - fromZ)) > oldViewDistance) {
-                        this.addCallback(parameter, currX, currZ);
+            final int overlapMinX = Math.max(oldMinX, newMinX);
+            final int overlapMinZ = Math.max(oldMinZ, newMinZ);
+            final int overlapMaxX = Math.min(oldMaxX, newMaxX);
+            final int overlapMaxZ = Math.min(oldMaxZ, newMaxZ);
+
+            if (overlapMinX > overlapMaxX || overlapMinZ > overlapMaxZ) {
+                this.removeFromOld(parameter, fromX, fromZ, oldViewDistance);
+                this.addToNew(parameter, toX, toZ, newViewDistance);
+                return true;
+            }
+
+            // Visit the difference as left, middle, and right X strips to avoid scanning the overlap.
+            if (oldMinX < overlapMinX) {
+                this.removeRectangle(parameter, oldMinX, overlapMinX - 1, oldMinZ, oldMaxZ);
+            }
+            if (oldMinZ < overlapMinZ || overlapMaxZ < oldMaxZ) {
+                for (int x = overlapMinX; x <= overlapMaxX; ++x) {
+                    if (oldMinZ < overlapMinZ) {
+                        for (int z = oldMinZ; z < overlapMinZ; ++z) {
+                            this.removeCallback(parameter, x, z);
+                        }
+                    }
+                    if (overlapMaxZ < oldMaxZ) {
+                        for (int z = overlapMaxZ + 1; z <= oldMaxZ; ++z) {
+                            this.removeCallback(parameter, x, z);
+                        }
                     }
                 }
+            }
+            if (overlapMaxX < oldMaxX) {
+                this.removeRectangle(parameter, overlapMaxX + 1, oldMaxX, oldMinZ, oldMaxZ);
+            }
+
+            if (newMinX < overlapMinX) {
+                this.addRectangle(parameter, newMinX, overlapMinX - 1, newMinZ, newMaxZ);
+            }
+            if (newMinZ < overlapMinZ || overlapMaxZ < newMaxZ) {
+                for (int x = overlapMinX; x <= overlapMaxX; ++x) {
+                    if (newMinZ < overlapMinZ) {
+                        for (int z = newMinZ; z < overlapMinZ; ++z) {
+                            this.addCallback(parameter, x, z);
+                        }
+                    }
+                    if (overlapMaxZ < newMaxZ) {
+                        for (int z = overlapMaxZ + 1; z <= newMaxZ; ++z) {
+                            this.addCallback(parameter, x, z);
+                        }
+                    }
+                }
+            }
+            if (overlapMaxX < newMaxX) {
+                this.addRectangle(parameter, overlapMaxX + 1, newMaxX, newMinZ, newMaxZ);
             }
 
             return true;

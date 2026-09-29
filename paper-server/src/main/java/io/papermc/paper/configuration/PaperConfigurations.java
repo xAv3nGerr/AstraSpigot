@@ -223,6 +223,7 @@ public class PaperConfigurations extends Configurations<GlobalConfiguration, Wor
     public GlobalConfiguration initializeGlobalConfiguration(final RegistryAccess registryAccess) throws ConfigurateException {
         GlobalConfiguration configuration = super.initializeGlobalConfiguration(registryAccess);
         GlobalConfiguration.set(configuration);
+        AstraSpigotConfiguration.load(this.globalFolder.resolve("astraspigot.yml"));
         return configuration;
     }
 
@@ -330,6 +331,7 @@ public class PaperConfigurations extends Configurations<GlobalConfiguration, Wor
     public void reloadConfigs(MinecraftServer server) {
         try {
             this.initializeGlobalConfiguration(server.registryAccess(), reloader(this.globalConfigClass, GlobalConfiguration.get()));
+            AstraSpigotConfiguration.load(this.globalFolder.resolve("astraspigot.yml"));
             this.initializeWorldDefaultsConfiguration(server.registryAccess());
             for (ServerLevel level : server.getAllLevels()) {
                 this.createWorldConfig(createWorldContextMap(level), reloader(this.worldConfigClass, level.paperConfig()));

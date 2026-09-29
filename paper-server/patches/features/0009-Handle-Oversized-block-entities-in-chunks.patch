@@ -47,10 +47,10 @@ index d03e31d5a6065c9011877f6474bd25dda74922a6..be30d31270a9080faf4e785ca9614f55
          }
      }
 diff --git a/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java b/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
-index cb47f42231f1f29e1915316b2f3515dd2395d365..8768e42dd359a7d7c2b7fb715482d74b3a2ee546 100644
+index 0ec9ff10fec614dc471e483a1375818802002641..8ce60b09bd2b0bf5c8fc0e430c2bedcfb9069fe0 100644
 --- a/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
-@@ -54,4 +54,11 @@ public record ClientboundLevelChunkWithLightPacket(int x, int z, ClientboundLeve
+@@ -49,4 +49,11 @@ public record ClientboundLevelChunkWithLightPacket(int x, int z, ClientboundLeve
      public void handle(final ClientGamePacketListener listener) {
          listener.handleLevelChunkWithLight(this);
      }

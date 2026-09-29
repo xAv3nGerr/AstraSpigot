@@ -1,6 +1,6 @@
 AstraSpigot [![Version](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fartifactory.papermc.io%2Fartifactory%2Funiverse%2Fio%2Fpapermc%2Fpaper%2Fpaper-api%2Fmaven-metadata.xml&strategy=highestVersion&filter=26.3.*&label=version&color=%23344ceb
 )](https://papermc.io/downloads/paper)
-[![Paper Build Status](https://img.shields.io/github/actions/workflow/status/PaperMC/Paper/build.yml?branch=main)](https://github.com/PaperMC/Paper/actions)
+[![Paper Build Status](https://img.shields.io/github/actions/workflow/status/PaperMC/Paper/release-26.3.yaml?branch=main)](https://github.com/PaperMC/Paper/actions)
 [![Discord](https://img.shields.io/discord/289587909051416579.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/papermc)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/papermc?label=GitHub%20Sponsors)](https://github.com/sponsors/PaperMC)
 [![Open Collective](https://img.shields.io/opencollective/all/papermc?label=OpenCollective%20Sponsors)](https://opencollective.com/papermc)
@@ -20,6 +20,16 @@ Run `AstraSpigot-<version>.jar` directly as your server jar.
 
 * Documentation on using Paper: [docs.papermc.io](https://docs.papermc.io)
 * For a sneak peek at upcoming features, [see here](https://github.com/PaperMC/Paper/projects)
+
+Region storage
+------
+MCA remains the default. To use Leaf-style Linear region files, set
+`region-file-format=linear` in `server.properties` and restart the server.
+The format choice is not hot-reloadable. Linear and MCA files are not mixed or
+automatically migrated: back up the world and use a deliberate migration
+process before changing formats. The server refuses to open a region directory
+containing files for a different configured format rather than hiding or
+overwriting them.
 
 How To (Plugin Developers)
 ------
@@ -88,6 +98,8 @@ You can find our collective [here](https://opencollective.com/papermc), or you c
 
 Special Thanks To:
 -------------
+
+[![CI powered by namespace badge](https://assets.papermc.io/sponsors/namespace-oss-badge.svg)](https://namespace.so/github-actions/?utm_source=oss&utm_campaign=papermc)
 
 [![YourKit-Logo](https://www.yourkit.com/images/yklogo.png)](https://www.yourkit.com/)
 

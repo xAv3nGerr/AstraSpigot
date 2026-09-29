@@ -40,7 +40,11 @@ public final class MoonriseCommon {
     public static final BalancedPrioritisedThreadPool.OrderedStreamGroup SERVER_GROUP = MoonriseCommon.WORKER_POOL.createOrderedStreamGroup();
 
     public static void adjustWorkerThreads(final int configWorkerThreads, final int configIoThreads) {
-        int defaultWorkerThreads = OSNuma.getNativeInstance().getTotalCores()  / 2;
+        final int availableProcessors = Runtime.getRuntime().availableProcessors();
+        int defaultWorkerThreads = Math.min(
+            OSNuma.getNativeInstance().getTotalCores(),
+            availableProcessors
+        ) / 2;
         if (defaultWorkerThreads <= 4) {
             defaultWorkerThreads = defaultWorkerThreads <= 3 ? 1 : 2;
         } else {
@@ -54,7 +58,9 @@ public final class MoonriseCommon {
             workerThreads = defaultWorkerThreads;
         }
 
-        final int ioThreads = Math.max(1, configIoThreads);
+        final int ioThreads = configIoThreads > 0
+            ? configIoThreads
+            : Math.max(1, Math.min(4, availableProcessors / 4));
 
         WORKER_POOL.adjustThreadCount(workerThreads);
         IO_POOL.adjustThreadCount(ioThreads);
